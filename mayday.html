@@ -139,7 +139,13 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data["message"] == undefined){
-                        document.getElementById('result').innerHTML = "報名電話: " + data.userPhone;
+                        if (data.userPhone.includes(" ")){
+
+                            document.getElementById('result').innerHTML = "您的電話有空格，請根據以下格式輸入<br> " + data.userPhone.replace(" ", "%20");
+                        }else{
+                            document.getElementById('result').innerHTML = "報名電話: " + data.userPhone;
+                        }
+                        
                     }else{
                         document.getElementById('result').innerHTML = data["message"];
                     }                })
