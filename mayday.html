@@ -98,7 +98,7 @@
     </style>
 </head>
 <body>
-    <h1>五月天扭蛋 忘記電話查詢</h1>
+    <h1>五月天扭蛋 忘記電話查詢<br>相信音樂已修復此漏洞，本站不再提供相關服務</h1>
     <div class="input-row">
         <select id="concertDate">
             <option value="2023-12-31">2023/12/31</option>
@@ -108,10 +108,10 @@
             <option value="2024-01-06">2024/01/06</option>
             <option value="2024-01-07">2024/01/07</option>
         </select>
-        <input type="text" id="orderNo" placeholder="請輸入訂單編號" maxlength="9" oninput="validateInput()">
+        <input disabled= "disabled" type="text" id="orderNo" placeholder="請輸入訂單編號" maxlength="9" oninput="validateInput()">
     </div>
     <label class="agreement">
-        <input type="checkbox" id="agreement" onchange="validateInput()"> 我同意本系統僅供查詢自己訂單，若有任何非法操作，將自負相關法律責任，與本站無關
+        <input disabled="disabled" ="checkbox" id="agreement" onchange="validateInput()"> 我同意本系統僅供查詢自己訂單，若有任何非法操作，將自負相關法律責任，與本站無關
     </label>
     <button id="submitButton" onclick="queryAPI()" disabled>送出</button>
     <div id="result"></div>
@@ -130,29 +130,29 @@
             document.getElementById('submitButton').disabled = !(reg.test(orderNo) && agreement);
         }
         
-        function queryAPI() {
-            var concertDate = document.getElementById('concertDate').value;
-            var orderNo = document.getElementById('orderNo').value;
-            var url = `https://api.jarvis-tech.co/bin-music/gachapon/orderSearch?concertDate=${concertDate}&orderNo=${orderNo}`;
+        // function queryAPI() {
+        //     var concertDate = document.getElementById('concertDate').value;
+        //     var orderNo = document.getElementById('orderNo').value;
+        //     var url = `https://api.jarvis-tech.co/bin-music/gachapon/orderSearch?concertDate=${concertDate}&orderNo=${orderNo}`;
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data["message"] == undefined){
-                        if (data.userPhone.includes(" ")){
+        //     fetch(url)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data["message"] == undefined){
+        //                 if (data.userPhone.includes(" ")){
 
-                            document.getElementById('result').innerHTML = "您的電話有空格，請根據以下格式輸入<br> " + data.userPhone.replace(" ", "%20");
-                        }else{
-                            document.getElementById('result').innerHTML = "報名電話: " + data.userPhone;
-                        }
+        //                     document.getElementById('result').innerHTML = "您的電話有空格，請根據以下格式輸入<br> " + data.userPhone.replace(" ", "%20");
+        //                 }else{
+        //                     document.getElementById('result').innerHTML = "報名電話: " + data.userPhone;
+        //                 }
                         
-                    }else{
-                        document.getElementById('result').innerHTML = data["message"];
-                    }                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
+        //             }else{
+        //                 document.getElementById('result').innerHTML = data["message"];
+        //             }                })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //         });
+        // }
     </script>
 </body>
 </html>
