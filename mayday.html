@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>訂單查詢</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 400px;
+        }
+        select, input, button {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+        }
+        .agreement {
+            font-size: 0.8em;
+        }
+
+        @media (max-width: 600px) {
+            .input-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>五月天扭蛋 忘記電話查詢</h1>
+    <div class="input-row">
+        <select id="concertDate">
+            <option value="2023-12-31">2023/12/31</option>
+            <option value="2024-01-01">2024/01/01</option>
+            <option value="2024-01-02">2024/01/02</option>
+            <option value="2024-01-05">2024/01/05</option>
+            <option value="2024-01-06">2024/01/06</option>
+            <option value="2024-01-07">2024/01/07</option>
+        </select>
+        <input type="text" id="orderNo" placeholder="請輸入訂單編號" maxlength="9" oninput="validateInput()">
+    </div>
+    <label class="agreement">
+        <input type="checkbox" id="agreement" onchange="validateInput()"> 我同意使用本系統只查詢本人所報名之演唱會訂單，若有查詢他人訂單，將自負相關法律責任，與本站無關
+    </label>
+    <button id="submitButton" onclick="queryAPI()" disabled>送出</button>
+    <div id="result"></div>
+
+    <div class="footer">
+        <p>&copy; 2023. All rights reserved. | <a href="https://github.com/yourusername">Github</a></p>
+    </div>
+
+
+   
+    <script>
+         function validateInput() {
+            var reg = /^\d{9}$/;
+            var orderNo = document.getElementById('orderNo').value;
+            var agreement = document.getElementById('agreement').checked;
+            document.getElementById('submitButton').disabled = !(reg.test(orderNo) && agreement);
+        }
+        
+        function queryAPI() {
+            var concertDate = document.getElementById('concertDate').value;
+            var orderNo = document.getElementById('orderNo').value;
+            var url = `https://api.jarvis-tech.co/bin-music/gachapon/orderSearch?concertDate=${concertDate}&orderNo=${orderNo}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data["message"] == undefined){
+                        document.getElementById('result').innerHTML = "報名電話: " + data.userPhone;
+                    }else{
+                        document.getElementById('result').innerHTML = data["message"];
+                    }                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
