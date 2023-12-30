@@ -15,19 +15,26 @@
             justify-content: center;
             height: 100vh;
         }
+        h1 {
+            font-size: 1.5em;
+        }
         .input-row {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
             max-width: 400px;
         }
         select, input, button {
             padding: 10px;
             margin: 10px 0;
+            width: 100%;
+            font-size: 1em;
         }
         #result {
             margin-top: 20px;
             font-weight: bold;
+            font-size: 1em;
         }
         .footer {
             position: absolute;
@@ -35,15 +42,58 @@
             text-align: center;
             width: 100%;
             padding: 10px 0;
+            font-size: 0.8em;
         }
         .agreement {
             font-size: 0.8em;
+            justify-content: center;
+            align-items: center;
         }
 
-        @media (max-width: 600px) {
-            .input-row {
-                flex-direction: column;
+
+        @media (min-width: 600px) {
+            h1 {
+                font-size: 2em;
             }
+            .input-row {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            select, input, button {
+                width: auto;
+                font-size: 1.2em;
+            }
+            #result {
+                font-size: 1.2em;
+            }
+            .footer {
+                font-size: 1em;
+            }
+            .agreement {
+                font-size: 0.8em;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        @media (min-width: 900px) {
+            h1 {
+                font-size: 2.5em;
+            }
+            select, input, button {
+                font-size: 1.5em;
+            }
+            #result {
+                font-size: 1.5em;
+            }
+            .footer {
+                font-size: 1.2em;
+            }
+            .agreement {
+                font-size: 0.8em;
+                justify-content: center;
+                align-items: center;          
+          }
         }
     </style>
 </head>
@@ -61,13 +111,13 @@
         <input type="text" id="orderNo" placeholder="請輸入訂單編號" maxlength="9" oninput="validateInput()">
     </div>
     <label class="agreement">
-        <input type="checkbox" id="agreement" onchange="validateInput()"> 我同意使用本系統只查詢本人所報名之演唱會訂單，若有查詢他人訂單，將自負相關法律責任，與本站無關
+        <input type="checkbox" id="agreement" onchange="validateInput()"> 我同意本系統僅供查詢自己訂單，若有任何非法操作，將自負相關法律責任，與本站無關
     </label>
     <button id="submitButton" onclick="queryAPI()" disabled>送出</button>
     <div id="result"></div>
 
     <div class="footer">
-        <p>&copy; 2023. All rights reserved. | <a href="https://github.com/yourusername">Github</a></p>
+        <p>&copy; 2023. All rights reserved. | <a href="https://github.com/imbiganna/imbiganna.github.io">Github</a></p>
     </div>
 
 
